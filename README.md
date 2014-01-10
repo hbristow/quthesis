@@ -8,7 +8,7 @@ This set of files provides the `qutthesis` LaTeX class, which defines a set of s
 
 Usage
 -----
-This repo is designed to be placed either within your working tree, or in your texmf folder. Ie.
+This repo is designed to be placed either within your working tree, or in your `texmf` folder. Ie.
 
     -- Thesis/
         -- thesis.tex
@@ -48,7 +48,6 @@ The beginning of your thesis.tex can then be declared as follows:
 	\degree{Doctorate of Philosophy}
 	\date{\today}
 	
-	
 	% ------------------------------------------------------------------
 	% FRONT MATTER
 	% ------------------------------------------------------------------
@@ -66,6 +65,5 @@ The beginning of your thesis.tex can then be declared as follows:
 	% ------------------------------------------------------------------
 	\mainmatter
 	\input{chapter1}
+  \input{chapter2}
 	\end{document}
-
-
