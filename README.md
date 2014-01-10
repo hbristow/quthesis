@@ -65,5 +65,5 @@ The beginning of your thesis.tex can then be declared as follows:
 	% ------------------------------------------------------------------
 	\mainmatter
 	\input{chapter1}
-  \input{chapter2}
-	\end{document}
+  	\input{chapter2}
+  	\end{document}
