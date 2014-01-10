@@ -1,7 +1,7 @@
 % ----------------------------------------------------------------------------
 %
 % QUT THESIS
-% A PhD thesis document class for the University of Queensland
+% A PhD thesis document class for the Queensland University of Technology
 %
 % file:   qutthesis.cls
 % author: Hilton Bristow
