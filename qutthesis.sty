@@ -53,16 +53,14 @@
 \newcommand\@subtitle{}
 \newcommand\email[1]{\renewcommand\@email{\href{mailto:#1}{#1}\xspace}}
 \newcommand\@email{}
-\newcommand\phone[1]{\renewcommand\@phone{#1\xspace}}
-\newcommand\@phone{}
 \newcommand\university[1]{\renewcommand\@university{#1\xspace}}
 \newcommand\@university{}
 \newcommand\department[1]{\renewcommand\@department{#1\xspace}}
 \newcommand\@department{}
 \newcommand\address[1]{\renewcommand\@address{#1\xspace}}
 \newcommand\@address{}
-\newcommand\logo[1]{\renewcommand\@logo{#1}}
-\newcommand\@logo{}
+\newcommand\qualifications[1]{\renewcommand\@qualifications{#1\xspace}}
+\newcommand\@qualifications{}
 \newcommand\degree[1]{\renewcommand\@degree{#1\xspace}}
 \newcommand\@degree{}
 \newcommand\supervisor[1]{\renewcommand\@supervisor{#1\xspace}}
@@ -96,9 +94,9 @@
   \begin{center}
     \textbf{\Huge\@title\\\vspace{0.1in} \Large\@subtitle}\\
     \vspace{0.5in}
-    \large\emph{by}\\\medskip\textbf{\@author}
-    \medskip\\
-    \@department\\\@university\\
+    \large\emph{by}\\\medskip\textbf{\@author}\\
+    \@qualifications
+    \medskip\\\@department\\\@university\\
     \vspace{3in}
     A dissertation submitted in partial fulfilment\\ of the requirements for the degree of\\\@degree\\
     \smallskip
