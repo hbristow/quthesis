@@ -1,7 +1,6 @@
 QUT Thesis
 =========
 A LaTeX package and template for writing a thesis/dissertation at the Queensland University of Technology (QUT)
-![](screenshot.png)
 
 Introduction
 ------------
@@ -38,3 +37,5 @@ Getting started
 
  3. Modify `thesis.tex` with your details
  4. Check out each of the `*-*.tex` files to see how chapters using `subfiles` operate
+
+![](screenshot.png)
