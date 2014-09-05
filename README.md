@@ -37,5 +37,3 @@ Getting started
 
  3. Modify `thesis.tex` with your details
  4. Check out each of the `*-*.tex` files to see how chapters using `subfiles` operate
-
-![](screenshot.png)
