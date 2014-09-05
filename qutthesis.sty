@@ -3,19 +3,21 @@
 % qutthesis.sty
 % A PhD thesis style class for the Queensland University of Technology
 %
+% Hilton Bristow
+% 2014
+%
 % Options:
 %   print: Print binding offsets of 0.5in are added to the inner edge, and
 %     hyperlink coloring is disabled
 %
 % ----------------------------------------------------------------------------
 \NeedsTeXFormat{LaTeX2e}
-\ProvidesPackage{qutthesis}[01/09/15 QUT PhD Thesis Style]
+\ProvidesPackage{qutthesis}[01/09/14 QUT PhD Thesis Style]
 
 % ----------------------------------------------------------------------------
 % Required Packages
 % ----------------------------------------------------------------------------
 \RequirePackage[usenames,dvipsnames]{xcolor}
-\RequirePackage{lipsum}
 \RequirePackage{graphicx}
 \RequirePackage{xspace}
 \RequirePackage{wallpaper}
@@ -133,5 +135,8 @@
 }
 
 % ------------------------------------------------------------------------------------------
-% Custom Commands
+% Header Style
 % ------------------------------------------------------------------------------------------
+\pagestyle{myheadings}
+\renewcommand{\chaptermark}[1]{ \markboth{#1}{} }
+\renewcommand{\sectionmark}[1]{ \markright{#1}{} }
