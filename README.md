@@ -1,21 +1,20 @@
 QUT Thesis
 =========
 A LaTeX package and template for writing a thesis/dissertation at the Queensland University of Technology (QUT)
+![](screenshot.png)
 
 Introduction
 ------------
 This set of files provides the `qutthesis` LaTeX package, which defines a set of styles and preamble specific to QUT's submission guidelines for a PhD dissertation.
 
-Usage
------
 The `thesis.tex` file has everything you need to get started, and was used to produce the sample `thesis.pdf`. The package was designed to work with the `book` document class and the commands it provides, however it should also work with `memoir` if you prefer that.
 
 Features
 --------
 
  - A thesis skeleton to help get you writing
- - Chapters included using the `subfiles` package so you can compile chapters independently
- - A `compile` shell script which can compile your whole document or a single chapter, writing intermediate files to the `build` directory to keep your working directory clean
+ - Chapters included using the `subfiles` package so you can compile them independently
+ - A `compile` shell script which can build your whole document or a single chapter, writing intermediate files to the `build` directory to keep your working directory clean
  - Preconfigured `.gitignore` files to assist in version control
  - Margins and font size optimized for readability
  - Minimal definitions and package includes
