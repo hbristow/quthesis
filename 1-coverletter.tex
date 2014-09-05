@@ -1,10 +1,15 @@
+% ----------------------------------------------------------------------------
+% Cover Letter
+% ----------------------------------------------------------------------------
+\documentclass[thesis.tex]{subfiles}
+\begin{document}
+
 % Thesis Letter of Authenticity and Originality
 \makeatletter
 \vspace*{10mm}
 \begin{flushright}
     \@author\\
     \@email\\
-    \@phone\\
     \today
 \end{flushright}
 \vspace*{10mm}
@@ -19,7 +24,7 @@
     \bigskip
 \end{flushleft}
 
-\noindent In accordance with the requirements of the degree of \@degree in \@department, I present the following thesis entitled,
+\noindent In accordance with the requirements of the degree of \@degree in the \@department, I present the following thesis entitled,
 
 \begin{center}
 \bigskip
@@ -31,12 +36,10 @@
 
 \begin{flushright}
     \bigskip
-    Yours sincerely,\\
-    \bigskip
-    %\includegraphics[scale=4.0]{./Figures/signature}\\
+    Yours sincerely,\\\vspace{0.5in}
     \@author
 \end{flushright}
 \makeatother
 \cleardoublepage
 
-
+\end{document}

@@ -1,0 +1,137 @@
+% ----------------------------------------------------------------------------
+%
+% qutthesis.sty
+% A PhD thesis style class for the Queensland University of Technology
+%
+% Options:
+%   print: Print binding offsets of 0.5in are added to the inner edge, and
+%     hyperlink coloring is disabled
+%
+% ----------------------------------------------------------------------------
+\NeedsTeXFormat{LaTeX2e}
+\ProvidesPackage{qutthesis}[01/09/15 QUT PhD Thesis Style]
+
+% ----------------------------------------------------------------------------
+% Required Packages
+% ----------------------------------------------------------------------------
+\RequirePackage[usenames,dvipsnames]{xcolor}
+\RequirePackage{lipsum}
+\RequirePackage{graphicx}
+\RequirePackage{xspace}
+\RequirePackage{wallpaper}
+\RequirePackage[margin=1.7in]{geometry}
+\RequirePackage[ocgcolorlinks,pagebackref=true,bookmarks=true]{hyperref}
+\hypersetup{
+  colorlinks=true,
+  linkcolor=RoyalBlue,
+  citecolor=RedViolet,
+  urlcolor=RoyalBlue
+}
+
+% ----------------------------------------------------------------------------
+% Options
+% ----------------------------------------------------------------------------
+\DeclareOption{print}{
+  \newgeometry{bindingoffset=0.5in}
+  \hypersetup{
+    colorlinks=false,
+    linkcolor=black,
+    citecolor=black,
+    urlcolor=black
+  }
+}
+
+\ProcessOptions\relax
+
+% ----------------------------------------------------------------------------
+% Author Information
+% ----------------------------------------------------------------------------
+\makeatletter
+\newcommand\subtitle[1]{\renewcommand\@subtitle{#1\xspace}}
+\newcommand\@subtitle{}
+\newcommand\email[1]{\renewcommand\@email{\href{mailto:#1}{#1}\xspace}}
+\newcommand\@email{}
+\newcommand\phone[1]{\renewcommand\@phone{#1\xspace}}
+\newcommand\@phone{}
+\newcommand\university[1]{\renewcommand\@university{#1\xspace}}
+\newcommand\@university{}
+\newcommand\department[1]{\renewcommand\@department{#1\xspace}}
+\newcommand\@department{}
+\newcommand\address[1]{\renewcommand\@address{#1\xspace}}
+\newcommand\@address{}
+\newcommand\logo[1]{\renewcommand\@logo{#1}}
+\newcommand\@logo{}
+\newcommand\degree[1]{\renewcommand\@degree{#1\xspace}}
+\newcommand\@degree{}
+\newcommand\supervisor[1]{\renewcommand\@supervisor{#1\xspace}}
+\newcommand\@supervisor{}
+\newcommand\hod[1]{\renewcommand\@hod{#1\xspace}}
+\newcommand\@hod{}
+\newcommand\keywords[1]{\renewcommand\@keywords{#1}}
+\newcommand\@keywords{}
+
+% ----------------------------------------------------------------------------
+% Insert after preamble
+% ----------------------------------------------------------------------------
+\AtBeginDocument{
+  \hypersetup{
+    pdftitle=\@title,
+    pdfauthor=\@author,
+    pdfsubject=\degree\xspace Thesis,
+    pdfkeywords=\@keywords
+  }
+}
+
+% ----------------------------------------------------------------------------
+% Title
+% ----------------------------------------------------------------------------
+\renewcommand{\maketitle}{
+
+  % Titlepage
+  \thispagestyle{empty}
+  \makebackground
+  \vspace*{2in}
+  \begin{center}
+    \textbf{\Huge\@title\\\vspace{0.1in} \Large\@subtitle}\\
+    \vspace{0.5in}
+    \large\emph{by}\\\medskip\textbf{\@author}
+    \medskip\\
+    \@department\\\@university\\
+    \vspace{3in}
+    A thesis submitted for the\\\@degree\\
+    \smallskip
+    \normalsize
+    \@date
+  \end{center}
+
+  % Keywords
+  \clearpage
+  \thispagestyle{empty}
+  \vspace*{\fill}
+  \begin{center}
+    \textbf{Keywords:} \@keywords.
+  \end{center}
+  \clearpage
+}
+
+% Logo
+\newcommand{\makelogo}{
+  \put(-100,350){
+    \parbox[b][\paperheight]{\paperwidth}{
+      \vfill
+      \centering
+      \includegraphics[width=0.6\textwidth]{figures/qutlogo}
+      \vfill
+    }
+  }
+}
+
+% Background
+\newcommand{\makebackground}{
+  \ThisCenterWallPaper{1}{figures/qutcover}
+  \AddToShipoutPicture*{\makelogo}
+}
+
+% ------------------------------------------------------------------------------------------
+% Custom Commands
+% ------------------------------------------------------------------------------------------

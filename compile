@@ -1,0 +1,26 @@
+#!/usr/bin/env bash
+# compile
+# Compile the thesis, staging temp files in a build directory
+# Usage: ./compile [filename.tex]
+
+if [ "$#" -eq 0 ]; then
+  # Perform a full compile, with cross references and bibliography
+  # Invoked with:
+  #   ./compile
+  document="thesis.tex"
+  pdflatex --output-directory=build $document
+  if [ "$?" -ne 0 ]; then
+    # an error occurred in the first run, abort
+    exit
+  fi
+  bibtex "build/thesis.aux"
+  pdflatex --output-directory=build $document
+  pdflatex --output-directory=build $document
+  cp "build/thesis.pdf" .
+else
+  # Perform a single-pass compile of one of the subfiles
+  # Invoked with:
+  #   ./compile filename.tex
+  document=$1
+  pdflatex --output-directory=build $document
+fi
