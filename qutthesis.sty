@@ -18,6 +18,7 @@
 % Required Packages
 % ----------------------------------------------------------------------------
 \RequirePackage[usenames,dvipsnames]{xcolor}
+\RequirePackage{setspace}
 \RequirePackage{graphicx}
 \RequirePackage{xspace}
 \RequirePackage{wallpaper}
@@ -41,6 +42,8 @@
     citecolor=black,
     urlcolor=black
   }
+  \let\builtinmainmatter\mainmatter
+  \renewcommand{\mainmatter}{\builtinmainmatter\onehalfspacing}
 }
 
 \ProcessOptions\relax
@@ -97,7 +100,7 @@
     \large\emph{by}\\\medskip\textbf{\@author}\\
     \@qualifications
     \medskip\\\@department\\\@university\\
-    \vspace{3in}
+    \vspace{2.8in}
     A dissertation submitted in partial fulfilment\\ of the requirements for the degree of\\\@degree\\
     \smallskip
     \normalsize
