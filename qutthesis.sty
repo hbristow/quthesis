@@ -41,6 +41,7 @@
 % ----------------------------------------------------------------------------
 % Conditionals
 % ----------------------------------------------------------------------------
+\newif\ifprint\printfalse
 \newif\ifstrict\stricttrue
 \newif\ifcalendas\calendasfalse
 
@@ -55,6 +56,7 @@
         citecolor=black,
         urlcolor=black
     }
+    \printtrue
 }
 
 \DeclareOption{onehalfspacing}{
@@ -80,16 +82,12 @@
 \newcommand\@university{}
 \newcommand\department[1]{\renewcommand\@department{#1\xspace}}
 \newcommand\@department{}
-\newcommand\address[1]{\renewcommand\@address{#1\xspace}}
-\newcommand\@address{}
 \newcommand\qualifications[1]{\renewcommand\@qualifications{#1\xspace}}
 \newcommand\@qualifications{}
 \newcommand\degree[1]{\renewcommand\@degree{#1\xspace}}
 \newcommand\@degree{}
 \newcommand\supervisor[1]{\renewcommand\@supervisor{#1\xspace}}
 \newcommand\@supervisor{}
-\newcommand\hod[1]{\renewcommand\@hod{#1\xspace}}
-\newcommand\@hod{}
 \newcommand\keywords[1]{\renewcommand\@keywords{#1}}
 \newcommand\@keywords{}
 

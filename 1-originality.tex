@@ -1,35 +1,18 @@
 % ----------------------------------------------------------------------------
-% Cover Letter
+% Statement of Authenticity and Originality
 % ----------------------------------------------------------------------------
 \documentclass[thesis.tex]{subfiles}
 \begin{document}
 \ifstrict
 
 % Thesis Letter of Authenticity and Originality
+\vspace*{\fill}\vspace{-30mm}
 \makeatletter
-\vspace*{10mm}
-\begin{flushright}
-    \@author\\
-    \@email\\
-    \today
-\end{flushright}
-\vspace*{10mm}
-\begin{flushleft}
-    \@hod\\
-    Head of School\\
-    \@department\\
-    \@university\\
-    \@address\\
-    \bigskip\bigskip\bigskip
-    Dear \@hod,
-    \bigskip
-\end{flushleft}
-
 \noindent In accordance with the requirements of the degree of \@degree in the \@department, I present the following thesis entitled,
 
 \begin{center}
 \bigskip
-\textbf{\emph{\@title:\\\@subtitle}}
+\textbf{\emph{\@title\\\@subtitle}}
 \bigskip
 \end{center}
 
@@ -37,10 +20,13 @@
 
 \begin{flushright}
     \bigskip
-    Yours sincerely,\\\vspace{0.5in}
+    \ifprint
+        Signed,\\\vspace{0.5in}
+    \fi
     \@author
 \end{flushright}
 \makeatother
+\vspace*{\fill}
 \cleardoublepage
 
 \fi
