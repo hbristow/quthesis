@@ -9,6 +9,10 @@
 % Options:
 %   print: Print binding offsets of 0.5in are added to the inner edge, and
 %     hyperlink coloring is disabled
+%   onehalfspacing: Increase line spacing in the mainmatter
+%   strict: Comply with the QUT style guidelines
+%   relaxed: Remove material that isn't of interest to the reader, but also
+%		breaks compliance with the official QUT guidelines
 %
 % ----------------------------------------------------------------------------
 \NeedsTeXFormat{LaTeX2e}
@@ -18,33 +22,49 @@
 % Required Packages
 % ----------------------------------------------------------------------------
 \RequirePackage[usenames,dvipsnames]{xcolor}
+\RequirePackage{ifxetex}
+\RequirePackage{fancyhdr}
 \RequirePackage{setspace}
 \RequirePackage{graphicx}
 \RequirePackage{xspace}
 \RequirePackage{wallpaper}
-\RequirePackage[margin=1.7in]{geometry}
+\RequirePackage{anyfontsize}
+\RequirePackage[top=1.7in,right=1.7in,bottom=1.5in,left=1.7in,bindingoffset=0in]{geometry}
 \RequirePackage[ocgcolorlinks,pagebackref=true,bookmarks=true]{hyperref}
 \hypersetup{
-  colorlinks=true,
-  linkcolor=RoyalBlue,
-  citecolor=RedViolet,
-  urlcolor=RoyalBlue
+    colorlinks=true,
+    linkcolor=RoyalBlue,
+    citecolor=RedViolet,
+    urlcolor=RoyalBlue
 }
+
+% ----------------------------------------------------------------------------
+% Conditionals
+% ----------------------------------------------------------------------------
+\newif\ifstrict\stricttrue
+\newif\ifcalendas\calendasfalse
 
 % ----------------------------------------------------------------------------
 % Options
 % ----------------------------------------------------------------------------
 \DeclareOption{print}{
-  \newgeometry{bindingoffset=0.5in}
-  \hypersetup{
-    colorlinks=false,
-    linkcolor=black,
-    citecolor=black,
-    urlcolor=black
-  }
-  \let\builtinmainmatter\mainmatter
-  \renewcommand{\mainmatter}{\builtinmainmatter\onehalfspacing}
+    \newgeometry{top=1.7in,right=1.7in,bottom=1.5in,left=1.7in,bindingoffset=0.3in}
+    \hypersetup{
+        colorlinks=false,
+        linkcolor=black,
+        citecolor=black,
+        urlcolor=black
+    }
 }
+
+\DeclareOption{onehalfspacing}{
+    \let\builtinmainmatter\mainmatter
+    \renewcommand{\mainmatter}{\builtinmainmatter\onehalfspacing}
+}
+
+\DeclareOption{strict}{\stricttrue}
+\DeclareOption{relaxed}{\strictfalse}
+\DeclareOption{calendas}{\calendastrue}
 
 \ProcessOptions\relax
 
@@ -74,70 +94,89 @@
 \newcommand\@keywords{}
 
 % ----------------------------------------------------------------------------
-% Insert after preamble
+% PDF Metadata
 % ----------------------------------------------------------------------------
 \AtBeginDocument{
-  \hypersetup{
-    pdftitle=\@title,
-    pdfauthor=\@author,
-    pdfsubject=\degree\xspace Thesis,
-    pdfkeywords=\@keywords
-  }
+    \hypersetup{
+        pdftitle=\@title,
+        pdfauthor=\@author,
+        pdfsubject=\degree\xspace Thesis,
+        pdfkeywords=\@keywords
+    }
 }
 
+% ----------------------------------------------------------------------------
+% Fonts
+% ----------------------------------------------------------------------------
+\ifxetex
+    \RequirePackage[bf]{titlesec}
+    \RequirePackage{fontspec}
+    \ifcalendas
+        % Calendas Font
+        \newfontfamily\calendas{Calendas Plus}
+    \else
+        % Hoefler Text fallback (OS X), Windows users should change this to Georgia
+        \newfontfamily\calendas{Hoefler Text}
+    \fi
+    \titleformat*{\chapter}{\LARGE\calendas}
+    \titleformat*{\section}{\LARGE\calendas}
+    \titleformat*{\subsection}{\Large\calendas}
+    \titleformat*{\subsubsection}{\large\calendas}
+\else
+    % fallback to bold Computer Modern
+    \newcommand{\calendas}{\bf}
+\fi
+  
 % ----------------------------------------------------------------------------
 % Title
 % ----------------------------------------------------------------------------
 \renewcommand{\maketitle}{
 
-  % Titlepage
-  \thispagestyle{empty}
-  \makebackground
-  \vspace*{2in}
-  \begin{center}
-    \textbf{\Huge\@title\\\vspace{0.1in} \Large\@subtitle}\\
-    \vspace{0.5in}
-    \large\emph{by}\\\medskip\textbf{\@author}\\
-    \@qualifications
-    \medskip\\\@department\\\@university\\
-    \vspace{2.8in}
-    A dissertation submitted in partial fulfilment\\ of the requirements for the degree of\\\@degree\\
-    \smallskip
-    \normalsize
-    \@date
-  \end{center}
+    \thispagestyle{empty}
+    \begin{center}
+        \topskip0pt
+        \vspace*{\fill}\vspace{-30mm}
+        \Huge{\fontsize{1.8em}{2em}\selectfont \calendas \@title}\\\vspace{5mm}
+        \Huge{\fontsize{1em}{1em}\selectfont \calendas \@subtitle}\\
+        \ifstrict
+            \vspace{12mm}
+            \large{\emph{by}\\\medskip \textbf{\@author}}\\
+            \@qualifications
+            \medskip\\\@department\\\@university\\
+            \vspace*{\fill}
+            A dissertation submitted in partial fulfilment\\ of the requirements for the degree of\\\@degree\\
+            \medskip
+            \normalsize
+            \@date
+        \else
+            \vspace{2in}
+            \Large{\calendas \@author\\\vspace{0.2in} \the\year}
+            \vspace*{\fill}
+        \fi
+    \end{center}
+    \clearpage
 
-  % Keywords
-  \clearpage
-  \thispagestyle{empty}
-  \vspace*{\fill}
-  \begin{center}
-    \textbf{Keywords:} \@keywords.
-  \end{center}
-  \clearpage
+    \thispagestyle{empty}
+    \begin{center}
+        \vspace*{\fill}
+        \ifstrict
+            \textbf{Keywords:} \@keywords.
+        \else
+            A thesis submitted for the degree of \@degree at\\\@university
+        \fi
+    \end{center}
+    \clearpage
 }
 
-% Logo
-\newcommand{\makelogo}{
-  \put(-100,350){
-    \parbox[b][\paperheight]{\paperwidth}{
-      \vfill
-      \centering
-      \includegraphics[width=0.6\textwidth]{figures/qutlogo}
-      \vfill
-    }
-  }
-}
-
-% Background
-\newcommand{\makebackground}{
-  \ThisCenterWallPaper{1}{figures/qutcover}
-  \AddToShipoutPicture*{\makelogo}
-}
-
-% ------------------------------------------------------------------------------------------
+% ----------------------------------------------------------------------------
 % Header Style
-% ------------------------------------------------------------------------------------------
-\pagestyle{myheadings}
-\renewcommand{\chaptermark}[1]{ \markboth{#1}{} }
-\renewcommand{\sectionmark}[1]{ \markright{#1}{} }
+% ----------------------------------------------------------------------------
+\fancypagestyle{custom}{
+    \fancyhf{}
+    \fancyhf[HLO]{\slshape\nouppercase{\leftmark}}
+    \fancyhf[HLE,HRO]{\thepage}
+    \renewcommand{\headrulewidth}{0pt}
+    \renewcommand{\footrulewidth}{0pt}
+}
+\pagestyle{custom} 
+\renewcommand{\chaptermark}[1]{\markboth{#1}{}}
