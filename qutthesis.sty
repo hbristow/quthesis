@@ -22,11 +22,13 @@
 % Required Packages
 % ----------------------------------------------------------------------------
 \RequirePackage[usenames,dvipsnames]{xcolor}
+\RequirePackage{ifthen}
 \RequirePackage{ifxetex}
 \RequirePackage{fancyhdr}
 \RequirePackage{setspace}
 \RequirePackage{graphicx}
 \RequirePackage{xspace}
+\RequirePackage{xparse}
 \RequirePackage{wallpaper}
 \RequirePackage{anyfontsize}
 \RequirePackage[text={4.9in,8.6in},centering,bindingoffset=0in]{geometry}
@@ -44,6 +46,7 @@
 \newif\ifprint\printfalse
 \newif\ifstrict\stricttrue
 \newif\ifcalendas\calendasfalse
+\newif\ifdropcaps\dropcapsfalse
 
 % ----------------------------------------------------------------------------
 % Options
@@ -67,6 +70,7 @@
 \DeclareOption{strict}{\stricttrue}
 \DeclareOption{relaxed}{\strictfalse}
 \DeclareOption{calendas}{\calendastrue}
+\DeclareOption{dropcaps}{\dropcapstrue}
 
 \ProcessOptions\relax
 
@@ -98,7 +102,7 @@
     \hypersetup{
         pdftitle=\@title,
         pdfauthor=\@author,
-        pdfsubject=\degree\xspace Thesis,
+        pdfsubject=\degree\xspace Dissertation,
         pdfkeywords=\@keywords
     }
 }
@@ -178,3 +182,18 @@
 }
 \pagestyle{custom} 
 \renewcommand{\chaptermark}[1]{\markboth{#1}{}}
+
+% ----------------------------------------------------------------------------
+% Automatic Dropcaps
+% ----------------------------------------------------------------------------
+\ifdropcaps
+    \RequirePackage{lettrine}
+\fi
+
+% ----------------------------------------------------------------------------
+% Quote Environment
+% ----------------------------------------------------------------------------
+\DeclareDocumentEnvironment{quote}{ O{} O{center} }%
+    { \begin{#2} \begin{minipage}{0.8\textwidth} \it }%
+    { \ifthenelse{\equal{#1}{}}{}{\par\raggedleft\textsc{-- #1}}%
+      \end{minipage}\end{#2}\par\@afterindentfalse\@afterheading }
