@@ -18,6 +18,7 @@ Features
  - Margins and font size optimized for readability
  - Minimal definitions and package includes
  - Clean internal design, so you can understand what's going on
+ - Makes a best effort to conform to QUTs [style requirements](https://cms.qut.edu.au/__data/assets/pdf_file/0004/7249/requirements-for-presenting-theses.pdf)
 
 Getting started
 ---------------
