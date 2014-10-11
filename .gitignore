@@ -30,6 +30,7 @@ Session.vim
 
 
 ### LaTeX ###
+manual.tex
 *.acn
 *.acr
 *.alg

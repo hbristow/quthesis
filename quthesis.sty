@@ -1,6 +1,6 @@
 % ----------------------------------------------------------------------------
 %
-% qutthesis.sty
+% quthesis.sty
 % A PhD thesis style class for the Queensland University of Technology
 %
 % Hilton Bristow
@@ -16,7 +16,7 @@
 %
 % ----------------------------------------------------------------------------
 \NeedsTeXFormat{LaTeX2e}
-\ProvidesPackage{qutthesis}[01/09/14 QUT PhD Thesis Style]
+\ProvidesPackage{quthesis}[01/09/14 QUT PhD Thesis Style]
 
 % ----------------------------------------------------------------------------
 % Required Packages
@@ -39,6 +39,7 @@
     citecolor=RedViolet,
     urlcolor=RoyalBlue
 }
+
 
 % ----------------------------------------------------------------------------
 % Conditionals
@@ -188,7 +189,40 @@
 % ----------------------------------------------------------------------------
 \ifdropcaps
     \RequirePackage{lettrine}
+    \setlength{\DefaultNindent}{0em}
+    \renewcommand{\LettrineFontHook}{\calendas}
 \fi
+
+
+% ----------------------------------------------------------------------------
+% Code environment
+% ----------------------------------------------------------------------------
+\RequirePackage{listings}
+\lstset{
+  basicstyle=\ttfamily,
+  backgroundcolor=\color{gray!2},
+  basewidth={0.5em,0.45em},
+  frame=single,
+  framerule=0pt,
+  emph={},
+  emphstyle=\bfseries
+}
+
+% rename environments
+\let\codeblock\lstlisting
+\let\code\lstinline
+
+
+% ----------------------------------------------------------------------------
+% Tight Itemize Environment
+% ---------------------------------------------------------------------------
+\newenvironment{tightemize}
+    {\begin{itemize}
+        \setlength{\itemsep}{2pt}
+        \setlength{\parskip}{0pt}
+        \setlength{\parsep}{0pt}}
+    {\end{itemize}}
+
 
 % ----------------------------------------------------------------------------
 % Quote Environment
@@ -197,3 +231,29 @@
     { \begin{#2} \begin{minipage}{0.8\textwidth} \it }%
     { \ifthenelse{\equal{#1}{}}{}{\par\raggedleft\textsc{-- #1}}%
       \end{minipage}\end{#2}\par\@afterindentfalse\@afterheading }
+
+
+% ----------------------------------------------------------------------------
+% Abbreviations
+% ----------------------------------------------------------------------------
+\DeclareRobustCommand\onedot{\futurelet\@let@token\@onedot}
+\def\@onedot{\ifx\@let@token.\else.\null\fi\xspace}
+\newcommand{\abbreviation}[1]{\emph{#1}\onedot}
+\newcommand{\ie}{\abbreviation{i.e}}
+\newcommand{\eg}{\abbreviation{e.g}}
+\newcommand{\cf}{\abbreviation{c.f}}
+\newcommand{\etc}{\abbreviation{etc}}
+\newcommand{\wrt}{\abbreviation{w.r.t}}
+\newcommand{\dof}{\abbreviation{d.o.f}}
+\newcommand{\etal}{\abbreviation{et al}}
+
+
+% ----------------------------------------------------------------------------
+% References
+% ----------------------------------------------------------------------------
+\let\secsym\S
+\newcommand{\chap}[1]{\secsym\ref{#1}}
+\renewcommand{\sec}[1]{\secsym\ref{#1}}
+\newcommand{\subsec}[1]{\secsym\ref{#1}}
+\newcommand{\fig}[1]{Figure \ref{#1}}
+\newcommand{\eqn}[1]{Equation (\ref{#1})}
