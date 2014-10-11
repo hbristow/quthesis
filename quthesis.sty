@@ -7,12 +7,19 @@
 % 2014
 %
 % Options:
-%   print: Print binding offsets of 0.5in are added to the inner edge, and
-%     hyperlink coloring is disabled
-%   onehalfspacing: Increase line spacing in the mainmatter
-%   strict: Comply with the QUT style guidelines
-%   relaxed: Remove material that isn't of interest to the reader, but also
+%   print:
+%       Print binding offsets of 0.5in are added to the inner edge, and
+%       hyperlink coloring is disabled
+%   onehalfspacing:
+%       Increase line spacing in the mainmatter
+%   strict (default):
+%       Comply with the QUT style guidelines
+%   relaxed:
+%       Remove material that isn't of interest to the reader, but also
 %		breaks compliance with the official QUT guidelines
+%   calendas:
+%       Use the Calendas font for headings, or a similar fallback if
+%       Calendas is not available
 %
 % ----------------------------------------------------------------------------
 \NeedsTeXFormat{LaTeX2e}
@@ -25,12 +32,7 @@
 \RequirePackage{ifthen}
 \RequirePackage{ifxetex}
 \RequirePackage{fancyhdr}
-\RequirePackage{setspace}
-\RequirePackage{graphicx}
 \RequirePackage{xspace}
-\RequirePackage{xparse}
-\RequirePackage{wallpaper}
-\RequirePackage{anyfontsize}
 \RequirePackage[text={4.9in,8.6in},centering,bindingoffset=0in]{geometry}
 \RequirePackage[ocgcolorlinks,pagebackref=true,bookmarks=true]{hyperref}
 \hypersetup{
