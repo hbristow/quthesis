@@ -1,7 +1,12 @@
 #!/usr/bin/env bash
+# 
 # compile
-# Compile the thesis, staging temp files in a build directory
+# Compile LaTeX sources, staging temporary files in a build directory
 # Usage: ./compile [filename.tex]
+# 
+# If no filenames are given, perform a multipass compile of the full thesis
+# If filename.tex is provided, compile only that subfile
+#
 rootname="thesis"
 work_dir=$PWD
 script_dir=$(dirname "$0")

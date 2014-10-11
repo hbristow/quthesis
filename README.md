@@ -1,10 +1,10 @@
-QUT Thesis
-=========
+QUThesis
+========
 A LaTeX package and template for writing a thesis/dissertation at the Queensland University of Technology (QUT)
 
 Introduction
 ------------
-This set of files provides the `qutthesis` LaTeX package, which defines a set of styles and preamble specific to QUT's submission guidelines for a PhD dissertation.
+This set of files provides the `quthesis` LaTeX package, which defines a set of styles and preamble specific to QUT's submission guidelines for a PhD dissertation.
 
 The `thesis.tex` file has everything you need to get started, and was used to produce the sample `thesis.pdf`. The package was designed to work with the `book` document class and the commands it provides, however it should also work with `memoir` if you prefer that.
 
@@ -18,7 +18,7 @@ Features
  - Margins and font size optimized for readability
  - Minimal definitions and package includes
  - Clean internal design, so you can understand what's going on
- - Makes a best effort to conform to QUTs [style requirements](https://cms.qut.edu.au/__data/assets/pdf_file/0004/7249/requirements-for-presenting-theses.pdf)
+ - Makes a best effort to conform to QUT's [style requirements](https://cms.qut.edu.au/__data/assets/pdf_file/0004/7249/requirements-for-presenting-theses.pdf)
 
 Getting started
 ---------------
@@ -26,13 +26,13 @@ Getting started
  1. Clone the repository
   
     ```
-    git clone https://github.com/hbristow/qutthesis
+    git clone https://github.com/hbristow/quthesis
     ```
 
  2. Build the existing sources
 
     ```
-    cd qutthesis
+    cd quthesis
     ./compile
     ```
 
