@@ -31,6 +31,7 @@
 \RequirePackage[usenames,dvipsnames]{xcolor}
 \RequirePackage{ifthen}
 \RequirePackage{ifxetex}
+\let\footruleskip\undefined % <-- if using memoir and fancyhdr
 \RequirePackage{fancyhdr}
 \RequirePackage{xspace}
 \RequirePackage[text={4.9in,8.6in},centering,bindingoffset=0in]{geometry}
@@ -237,9 +238,9 @@
 % ----------------------------------------------------------------------------
 % Quote Environment
 % ----------------------------------------------------------------------------
-\DeclareDocumentEnvironment{quote}{ O{} O{center} }%
-    { \begin{#2} \begin{minipage}{0.8\textwidth} \it }%
-    { \ifthenelse{\equal{#1}{}}{}{\par\raggedleft\textsc{-- #1}}%
+\DeclareDocumentEnvironment{quote}{ O{} O{center} }
+    { \begin{#2} \begin{minipage}{0.8\textwidth} \itshape }
+    { \ifthenelse{\equal{#1}{}}{}{\par\raggedleft\textsc{-- #1}}
       \end{minipage}\end{#2}\par\@afterindentfalse\@afterheading }
 
 
