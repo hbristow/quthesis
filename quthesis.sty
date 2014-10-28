@@ -185,8 +185,9 @@
     \renewcommand{\headrulewidth}{0pt}
     \renewcommand{\footrulewidth}{0pt}
 }
-\pagestyle{custom} 
-\renewcommand{\chaptermark}[1]{\markboth{#1}{}}
+\pagestyle{custom}
+\def\nonewline#1{\begingroup\def\\{ }#1\endgroup}
+\renewcommand{\chaptermark}[1]{\markboth{\nonewline{#1}}{}}
 
 % ----------------------------------------------------------------------------
 % Automatic Dropcaps
