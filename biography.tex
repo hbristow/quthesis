@@ -1,0 +1,19 @@
+% ----------------------------------------------------------------------------
+% Author Biography
+% ----------------------------------------------------------------------------
+\documentclass[thesis.tex]{subfiles}
+\begin{document}
+
+\chapter*{\centering Author Biography}
+\begin{quote}
+\IfFileExists{figures/portrait.png}{
+    \begin{wrapfigure}{L}{0.3\columnwidth}
+        \vspace{-0.9\baselineskip}
+        \includegraphics[width=0.3\columnwidth]{figures/portrait.png}
+        \vspace{-2\baselineskip}
+    \end{wrapfigure}
+}{}
+% Insert your biography here
+\end{quote}
+
+\end{document}
