@@ -52,6 +52,7 @@
 \newif\ifstrict\stricttrue
 \newif\ifcalendas\calendasfalse
 \newif\ifdropcaps\dropcapsfalse
+\newif\ifnonumber\nonumberfalse
 
 % ----------------------------------------------------------------------------
 % Options
@@ -76,6 +77,7 @@
 \DeclareOption{relaxed}{\strictfalse}
 \DeclareOption{calendas}{\calendastrue}
 \DeclareOption{dropcaps}{\dropcapstrue}
+\DeclareOption{nonumber}{\nonumbertrue}
 
 \ProcessOptions\relax
 
@@ -173,6 +175,27 @@
         \fi
     \end{center}
     \clearpage
+}
+
+% ----------------------------------------------------------------------------
+% Section Numbering Style
+% ----------------------------------------------------------------------------
+\ifnonumber
+    \renewcommand{\thesection}{}
+    \def\@seccntformat#1{\csname #1ignore\expandafter\endcsname\csname the#1\endcsname\quad}
+    \let\sectionignore\@gobbletwo
+    \let\latex@numberline\numberline
+    \def\numberline#1{\if\relax#1\relax\else\latex@numberline{#1}\fi}
+\fi
+
+% Introduction Chapter Style
+\newcommand{\introduction}[1]{
+    \def\@chapapp{Introduction}
+    \def\thechapter{}
+    \let\@makeschapterhead\@makechapterhead
+    \chapter*{#1}
+    \addcontentsline{toc}{chapter}{Introduction}
+    \chaptermark{#1}
 }
 
 % ----------------------------------------------------------------------------
