@@ -182,8 +182,10 @@
 % ----------------------------------------------------------------------------
 \ifnonumber
     \renewcommand{\thesection}{}
+    \renewcommand{\thesubsection}{}
     \def\@seccntformat#1{\csname #1ignore\expandafter\endcsname\csname the#1\endcsname\quad}
     \let\sectionignore\@gobbletwo
+    \let\subsectionignore\@gobbletwo
     \let\latex@numberline\numberline
     \def\numberline#1{\if\relax#1\relax\else\latex@numberline{#1}\fi}
 \fi
@@ -266,7 +268,14 @@
 \DeclareDocumentEnvironment{quote}{ O{} O{center} }
     { \begin{#2} \begin{minipage}{0.8\textwidth} \itshape }
     { \ifthenelse{\equal{#1}{}}{}{\par\raggedleft\textsc{-- #1}}
-      \end{minipage}\end{#2}\par\@afterindentfalse\@afterheading }
+      \end{minipage}\end{#2}\par\@afterindentfalse }
+
+
+% ----------------------------------------------------------------------------
+% Footnotes
+% ----------------------------------------------------------------------------
+\renewcommand{\footnotesize}{\scriptsize}
+\addtolength{\skip\footins}{\baselineskip}
 
 
 % ----------------------------------------------------------------------------
