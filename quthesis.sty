@@ -297,8 +297,8 @@
 % References
 % ----------------------------------------------------------------------------
 \let\secsym\S
-\newcommand{\chap}[1]{\secsym\ref{#1}}
-\renewcommand{\sec}[1]{\secsym\ref{#1}}
-\newcommand{\subsec}[1]{\secsym\ref{#1}}
-\newcommand{\fig}[1]{Figure \ref{#1}}
-\newcommand{\eqn}[1]{Equation (\ref{#1})}
+\newcommand{\chap}[1]{\secsym\ref{chap:#1}}
+\renewcommand{\sec}[1]{\secsym\ref{sec:#1}}
+\newcommand{\subsec}[1]{\secsym\ref{subsec:#1}}
+\newcommand{\fig}[1]{Figure \ref{fig:#1}}
+\newcommand{\eqn}[1]{Equation (\ref{eqn:#1})}
