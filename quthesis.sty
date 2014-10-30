@@ -36,12 +36,16 @@
 \RequirePackage{wrapfig}
 \RequirePackage{xspace}
 \RequirePackage[text={4.9in,8.6in},centering,bindingoffset=0in]{geometry}
-\RequirePackage[ocgcolorlinks,pagebackref=true,bookmarks=true]{hyperref}
+\RequirePackage[ocgcolorlinks,breaklinks=true,pagebackref=true,bookmarks=true]{hyperref}
 \hypersetup{
+    % Colors
     colorlinks=true,
     linkcolor=RoyalBlue,
     citecolor=RedViolet,
-    urlcolor=RoyalBlue
+    urlcolor=RoyalBlue,
+    % PDF Viewer
+    bookmarksopen=true,
+    bookmarksopenlevel=2
 }
 
 
@@ -190,15 +194,20 @@
     \def\numberline#1{\if\relax#1\relax\else\latex@numberline{#1}\fi}
 \fi
 
-% Introduction Chapter Style
-\newcommand{\introduction}[1]{
-    \def\@chapapp{Introduction}
-    \def\thechapter{}
-    \let\@makeschapterhead\@makechapterhead
-    \chapter*{#1}
-    \addcontentsline{toc}{chapter}{Introduction}
-    \chaptermark{#1}
+% Alpha (non-numbered) chapter environment
+\newcommand{\alphachapter}[2][]{
+    \ifthenelse{\equal{#1}{}}{
+        \chapter{#2}
+    }{
+        \def\@chapapp{#1}
+        \def\thechapter{}
+        \let\@makeschapterhead\@makechapterhead
+        \chapter*{#2}
+        \addcontentsline{toc}{chapter}{#1: #2}
+        \chaptermark{#2}
+    }
 }
+
 
 % ----------------------------------------------------------------------------
 % Header Style
@@ -213,6 +222,7 @@
 \pagestyle{custom}
 \def\nonewline#1{\begingroup\def\\{ }#1\endgroup}
 \renewcommand{\chaptermark}[1]{\markboth{\nonewline{#1}}{}}
+
 
 % ----------------------------------------------------------------------------
 % Automatic Dropcaps
@@ -247,28 +257,57 @@
 % Tight Itemize Environment
 % ---------------------------------------------------------------------------
 \newenvironment{tightemize}
-    {\begin{itemize}
-        \setlength{\itemsep}{2pt}
-        \setlength{\parskip}{0pt}
-        \setlength{\parsep}{0pt}}
-    {\end{itemize}}
+{
+    \begin{itemize}
+    \setlength{\itemsep}{2pt}
+    \setlength{\parskip}{0pt}
+    \setlength{\parsep}{0pt}
+}{
+    \end{itemize}
+}
 
 
 % ----------------------------------------------------------------------------
 % Vertical Centering
 % ----------------------------------------------------------------------------
 \newenvironment{verticenter}
-    {\vspace*{\fill}\vspace{-30mm}}
-    {\vspace*{\fill}}
+{
+    \vspace*{\fill}\vspace{-30mm}
+}{
+    \vspace*{\fill}
+}
 
 
 % ----------------------------------------------------------------------------
 % Quote Environment
 % ----------------------------------------------------------------------------
+\newlength{\theparindent}
 \DeclareDocumentEnvironment{quote}{ O{} O{center} }
-    { \begin{#2} \begin{minipage}{0.8\textwidth} \itshape }
-    { \ifthenelse{\equal{#1}{}}{}{\par\raggedleft\textsc{-- #1}}
-      \end{minipage}\end{#2}\par\@afterindentfalse }
+{
+    \let\doindent\indent
+    \setlength{\theparindent}{\parindent}
+    \def\indent{\begingroup\setlength{\parindent}{\theparindent}\doindent\endgroup}
+    \begin{#2}
+    \begin{minipage}{0.8\textwidth} \itshape
+}{
+    \ifthenelse{\equal{#1}{}}{}{\par\raggedleft\textsc{-- #1}}
+    \end{minipage}\end{#2}\par\@afterindentfalse
+}
+
+
+% ----------------------------------------------------------------------------
+% Verse Environment
+% ----------------------------------------------------------------------------
+\renewenvironment{verse}
+{
+    \parindent=0pt
+    \obeyspaces\obeylines
+    \begingroup\lccode`~=`\^^M
+    \lowercase{\endgroup\def~{\@ifnextchar~{\\}{\\*}}}
+    \begin{longtable}{l}
+}{
+    \end{longtable}
+}
 
 
 % ----------------------------------------------------------------------------
@@ -297,7 +336,7 @@
 % References
 % ----------------------------------------------------------------------------
 \let\secsym\S
-\newcommand{\chap}[1]{\secsym\ref{chap:#1}}
+\newcommand{\chap}[1]{Chapter \ref{chap:#1}}
 \renewcommand{\sec}[1]{\secsym\ref{sec:#1}}
 \newcommand{\subsec}[1]{\secsym\ref{subsec:#1}}
 \newcommand{\fig}[1]{Figure \ref{fig:#1}}
