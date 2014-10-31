@@ -1,3 +1,5 @@
-# Ignore the build directory, but keep it in the tree
-*
+# ----------------------------------------------------------------------------
+# Ignore the build directory, but keep it in the git tree
+# ----------------------------------------------------------------------------
 !.gitignore
+*

@@ -38,6 +38,7 @@
 \RequirePackage{xspace}
 \RequirePackage{xparse}
 \RequirePackage{graphicx}
+\RequirePackage{environ}
 \PassOptionsToPackage{hyphens}{url}
 \RequirePackage[text={4.9in,8.6in},centering,bindingoffset=0in]{geometry}
 \RequirePackage[pagebackref=true,bookmarks=true,breaklinks=true]{hyperref}
@@ -325,6 +326,31 @@
     \begin{longtable}{l}
 }{
     \end{longtable}
+}
+
+
+% ----------------------------------------------------------------------------
+% Biography Environment
+% ----------------------------------------------------------------------------
+\NewEnviron{biography}[1][]{
+    % Open left
+    \renewcommand{\cleardoublepage}{
+        \clearpage\if@twoside\ifodd\c@page \hbox{}\newpage\if@twocolumn\hbox{}%
+        \newpage\fi\fi\fi
+    }
+    % Insert non-empty biography
+    \ifthenelse{\equal{\BODY}{}}{}{
+        \chapter*{\centering Author Biography}
+        % \begin{biography}[figures/portrait] usage
+        \ifthenelse{\equal{#1}{}}{}{
+            \begin{wrapfigure}{L}{0.3\columnwidth}
+                \vspace{-0.9\baselineskip}
+                \includegraphics[width=0.3\columnwidth]{#1}
+                \vspace{-\baselineskip}
+            \end{wrapfigure}
+        }
+        \BODY
+    }
 }
 
 
