@@ -25,6 +25,7 @@
 \NeedsTeXFormat{LaTeX2e}
 \ProvidesPackage{quthesis}[01/09/14 QUT PhD Thesis Style]
 
+
 % ----------------------------------------------------------------------------
 % Required Packages
 % ----------------------------------------------------------------------------
@@ -35,8 +36,11 @@
 \RequirePackage{fancyhdr}
 \RequirePackage{wrapfig}
 \RequirePackage{xspace}
+\RequirePackage{xparse}
+\RequirePackage{graphicx}
+\PassOptionsToPackage{hyphens}{url}
 \RequirePackage[text={4.9in,8.6in},centering,bindingoffset=0in]{geometry}
-\RequirePackage[ocgcolorlinks,breaklinks=true,pagebackref=true,bookmarks=true]{hyperref}
+\RequirePackage[pagebackref=true,bookmarks=true,breaklinks=true]{hyperref}
 \hypersetup{
     % Colors
     colorlinks=true,
@@ -47,6 +51,7 @@
     bookmarksopen=true,
     bookmarksopenlevel=2
 }
+\urlstyle{rm}
 
 
 % ----------------------------------------------------------------------------
@@ -57,6 +62,7 @@
 \newif\ifcalendas\calendasfalse
 \newif\ifdropcaps\dropcapsfalse
 \newif\ifnonumber\nonumberfalse
+
 
 % ----------------------------------------------------------------------------
 % Options
@@ -85,6 +91,7 @@
 
 \ProcessOptions\relax
 
+
 % ----------------------------------------------------------------------------
 % Author Information
 % ----------------------------------------------------------------------------
@@ -106,6 +113,7 @@
 \newcommand\keywords[1]{\renewcommand\@keywords{#1}}
 \newcommand\@keywords{}
 
+
 % ----------------------------------------------------------------------------
 % PDF Metadata
 % ----------------------------------------------------------------------------
@@ -117,6 +125,7 @@
         pdfkeywords=\@keywords
     }
 }
+
 
 % ----------------------------------------------------------------------------
 % Fonts
@@ -139,7 +148,8 @@
     % fallback to bold Computer Modern
     \newcommand{\calendas}{\bf}
 \fi
-  
+
+
 % ----------------------------------------------------------------------------
 % Title
 % ----------------------------------------------------------------------------
@@ -181,6 +191,7 @@
     \clearpage
 }
 
+
 % ----------------------------------------------------------------------------
 % Section Numbering Style
 % ----------------------------------------------------------------------------
@@ -220,8 +231,16 @@
     \renewcommand{\footrulewidth}{0pt}
 }
 \pagestyle{custom}
+
+
+% ----------------------------------------------------------------------------
+% Remove chapter title formatting from headers and TOC
+% ----------------------------------------------------------------------------
 \def\nonewline#1{\begingroup\def\\{ }#1\endgroup}
 \renewcommand{\chaptermark}[1]{\markboth{\nonewline{#1}}{}}
+
+\let\stdcontentsline\contentsline
+\renewcommand{\contentsline}[3]{\stdcontentsline{#1}{\nonewline{#2}}{#3}}
 
 
 % ----------------------------------------------------------------------------
