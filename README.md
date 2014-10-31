@@ -38,3 +38,4 @@ Getting started
 
  3. Modify `thesis.tex` with your details
  4. Check out each of the `*-*.tex` files to see how chapters using `subfiles` operate
+ 5. Check out `manual.pdf` and `manual.tex` for details on the features quthesis provides
