@@ -236,11 +236,10 @@
 % ----------------------------------------------------------------------------
 % Remove chapter title formatting from headers and TOC
 % ----------------------------------------------------------------------------
-\def\nonewline#1{\begingroup\def\\{ }#1\endgroup}
-\renewcommand{\chaptermark}[1]{\markboth{\nonewline{#1}}{}}
-
 \let\stdcontentsline\contentsline
-\renewcommand{\contentsline}[3]{\stdcontentsline{#1}{\nonewline{#2}}{#3}}
+\newcommand{\noformat}[1]{\begingroup\def\\{ }#1\endgroup}
+\renewcommand{\chaptermark}[1]{\markboth{\noformat{#1}}{}}
+\renewcommand{\contentsline}[3]{\stdcontentsline{#1}{\noformat{#2}}{#3}}
 
 
 % ----------------------------------------------------------------------------
