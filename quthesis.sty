@@ -40,6 +40,7 @@
 \RequirePackage{ifthen}
 \RequirePackage{ifxetex}
 \RequirePackage{longtable}
+\RequirePackage{pgffor,pgfmath}
 \RequirePackage{wrapfig}
 \RequirePackage{xparse}
 \RequirePackage{xspace}
@@ -56,6 +57,7 @@
     bookmarksopen=true,
     bookmarksopenlevel=2
 }
+\RequirePackage{caption}
 \urlstyle{rm}
 
 
@@ -361,6 +363,15 @@
 % ----------------------------------------------------------------------------
 % Footnotes
 % ----------------------------------------------------------------------------
+\RequirePackage{footnotebackref}
+\let\std@footnotemark\@footnotemark
+\renewcommand*{\@footnotemark}{%
+    \refstepcounter{BackrefHyperFootnoteCounter}%
+    \xdef\BackrefFootnoteTag{bhfn:\theBackrefHyperFootnoteCounter}%
+    \label{\BackrefFootnoteTag}%
+    \std@footnotemark
+}
+
 \renewcommand{\footnotesize}{\scriptsize}
 \addtolength{\skip\footins}{\baselineskip}
 
@@ -383,9 +394,26 @@
 % ----------------------------------------------------------------------------
 % References
 % ----------------------------------------------------------------------------
-\let\secsym\S
-\newcommand{\chap}[1]{Chapter \ref{chap:#1}}
-\renewcommand{\sec}[1]{\secsym\ref{sec:#1}}
-\newcommand{\subsec}[1]{\secsym\ref{subsec:#1}}
-\newcommand{\fig}[1]{Figure \ref{fig:#1}}
-\newcommand{\eqn}[1]{Equation (\ref{eqn:#1})}
+\newcounter{reftype@N}
+\NewDocumentCommand{\reftype}{ m m m O{s} }{%
+    \def\labels{#3}%
+    \def\delimiter{}%
+    \setcounter{reftype@N}{-1}%
+    \foreach \lab in \labels {\stepcounter{reftype@N}}%
+    #1\ifthenelse{\equal{\value{reftype@N}}{0}}{}{#4}
+    \foreach \lab [count=\n] in \labels {%
+        \delimiter\ref{#2:\lab}%
+        \ifthenelse{\equal{\value{reftype@N}}{\n}}{%
+            \gdef\delimiter{ and }%
+        }{%
+            \gdef\delimiter{, }%
+        }%
+    }%
+}
+
+\newcommand{\chap}[1]{\reftype{Chapter}{chap}{#1}}
+\renewcommand{\sec}[1]{\reftype{Section}{sec}{#1}}
+\newcommand{\subsec}[1]{\reftype{Section}{subsec}{#1}}
+\newcommand{\app}[1]{\reftype{Appendix}{app}{#1}[]}
+\newcommand{\fig}[1]{\reftype{Figure}{fig}{#1}}
+\newcommand{\eq}[1]{\reftype{Equation}{eq}{#1}}
