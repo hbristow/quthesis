@@ -23,6 +23,10 @@
 %   nonumber:
 %       Remove numbering from sections and subsections (more suitable
 %       for historical/literature theses)
+%   footnotebackref:
+%       Backreferences on footnotes (patched to allow \footnotemark)
+%   verse:
+%       Enable custom verbatim verse environment
 %
 % ----------------------------------------------------------------------------
 \NeedsTeXFormat{LaTeX2e}
@@ -69,6 +73,8 @@
 \newif\ifcalendas\calendasfalse
 \newif\ifdropcaps\dropcapsfalse
 \newif\ifnonumber\nonumberfalse
+\newif\iffootnotebackref\footnotebackreffalse
+\newif\ifverse\versefalse
 
 
 % ----------------------------------------------------------------------------
@@ -86,15 +92,17 @@
 }
 
 \DeclareOption{onehalfspacing}{
-    \let\builtinmainmatter\mainmatter
-    \renewcommand{\mainmatter}{\builtinmainmatter\onehalfspacing}
+    \let\stdmainmatter\mainmatter
+    \renewcommand{\mainmatter}{\stdmainmatter\onehalfspacing}
 }
 
-\DeclareOption{strict}{\stricttrue}
-\DeclareOption{relaxed}{\strictfalse}
 \DeclareOption{calendas}{\calendastrue}
 \DeclareOption{dropcaps}{\dropcapstrue}
+\DeclareOption{footnotebackref}{\footnotebackreftrue}
 \DeclareOption{nonumber}{\nonumbertrue}
+\DeclareOption{relaxed}{\strictfalse}
+\DeclareOption{strict}{\stricttrue}
+\DeclareOption{verse}{\versetrue}
 
 \ProcessOptions\relax
 
@@ -323,16 +331,18 @@
 % ----------------------------------------------------------------------------
 % Verse Environment
 % ----------------------------------------------------------------------------
-\renewenvironment{verse}
-{
-    \parindent=0pt
-    \obeyspaces\obeylines
-    \begingroup\lccode`~=`\^^M
-    \lowercase{\endgroup\def~{\@ifnextchar~{\\}{\\*}}}
-    \begin{longtable}{l}
-}{
-    \end{longtable}
-}
+\ifverse
+    \renewenvironment{verse}
+    {
+        \parindent=0pt
+        \obeyspaces\obeylines
+        \begingroup\lccode`~=`\^^M
+        \lowercase{\endgroup\def~{\@ifnextchar~{\\}{\\*}}}
+        \begin{longtable}{l}
+    }{
+        \end{longtable}
+    }
+\fi
 
 
 % ----------------------------------------------------------------------------
@@ -363,14 +373,17 @@
 % ----------------------------------------------------------------------------
 % Footnotes
 % ----------------------------------------------------------------------------
-\RequirePackage{footnotebackref}
-\let\std@footnotemark\@footnotemark
-\renewcommand*{\@footnotemark}{%
-    \refstepcounter{BackrefHyperFootnoteCounter}%
-    \xdef\BackrefFootnoteTag{bhfn:\theBackrefHyperFootnoteCounter}%
-    \label{\BackrefFootnoteTag}%
-    \std@footnotemark
-}
+\iffootnotebackref
+    \RequirePackage{footnotebackref}
+
+    \let\std@footnotemark\@footnotemark
+    \renewcommand*{\@footnotemark}{%
+        \refstepcounter{BackrefHyperFootnoteCounter}%
+        \xdef\BackrefFootnoteTag{bhfn:\theBackrefHyperFootnoteCounter}%
+        \label{\BackrefFootnoteTag}%
+        \std@footnotemark
+    }
+\fi
 
 \renewcommand{\footnotesize}{\scriptsize}
 \addtolength{\skip\footins}{\baselineskip}
