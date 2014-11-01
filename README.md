@@ -6,7 +6,7 @@ Introduction
 ------------
 This set of files provides the `quthesis` LaTeX package, which defines a set of styles and preamble specific to QUT's submission guidelines for a PhD dissertation.
 
-The `thesis.tex` file has everything you need to get started, and was used to produce the sample `thesis.pdf`. The package was designed to work with the `book` document class and the commands it provides, however it should also work with `memoir` if you prefer that.
+The `thesis.tex` file has everything you need to get started, and was used to produce the sample `thesis.pdf`. The package was designed to work with the `book` document class and the commands it provides.
 
 Features
 --------
