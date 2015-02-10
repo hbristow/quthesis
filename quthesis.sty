@@ -38,7 +38,6 @@
 % ----------------------------------------------------------------------------
 \RequirePackage[usenames,dvipsnames]{xcolor}
 \RequirePackage{environ}
-\let\footruleskip\undefined % <-- if using memoir and fancyhdr
 \RequirePackage{fancyhdr}
 \RequirePackage{graphicx}
 \RequirePackage{ifthen}
@@ -220,20 +219,6 @@
     \def\numberline#1{\if\relax#1\relax\else\latex@numberline{#1}\fi}
 \fi
 
-% Alpha (non-numbered) chapter environment
-\newcommand{\alphachapter}[2][]{
-    \ifthenelse{\equal{#1}{}}{
-        \chapter{#2}
-    }{
-        \def\@chapapp{#1}
-        \def\thechapter{}
-        \let\@makeschapterhead\@makechapterhead
-        \chapter*{#2}
-        \addcontentsline{toc}{chapter}{#1: #2}
-        \chaptermark{#2}
-    }
-}
-
 
 % ----------------------------------------------------------------------------
 % Header Style
@@ -251,34 +236,50 @@
 % ----------------------------------------------------------------------------
 % Custom Chapter Style
 % ----------------------------------------------------------------------------
-\let\stdchapter\chapter
-\NewDocumentCommand{\newchapter}{ s O{} m }{
+\newcommand{\noformat}[1]{\begingroup\def\\{ }#1\endgroup}
+
+\newcounter{alphachapter}
+\RenewDocumentCommand{\chapter}{ som }{
+    % open new page
     \if@openright\cleardoublepage\else\clearpage\fi
     \thispagestyle{plain}%
     \global\global\@topnum\z@
     \@afterindentfalse
     \IfBooleanTF#1{
         % starred version
-        %\stdchapter*{#3}
-        \let\@makehead\@makeschapterhead
+        % \chapter*{Title}
+        \refstepcounter{alphachapter}
+        \begingroup\def\centering{}\pdfbookmark{#3}{#3}\endgroup
+        \@makeschapterhead{\raggedright #3}
     }{
         % regular version
-        \refstepcounter{chapter}
-        \let\@makehead\@makechapterhead
+        \IfNoValueTF{#2}{
+            % \chapter{Title}
+            \setcounter{secnumdepth}{2}
+            \refstepcounter{chapter}
+            \addcontentsline{toc}{chapter}{\protect\numberline{\thechapter}\noformat{#3}}
+            \@makechapterhead{\raggedright #3}
+        }{
+            % \chapter[Subtitle]{Title}
+            \ifthenelse{\equal{#2}{}}{\def\prefix{}}{\def\prefix{#2: }}
+            \setcounter{secnumdepth}{0}
+            \refstepcounter{alphachapter}
+            \def\@chapapp{}
+            \def\thechapter{#2}
+            \@makechapterhead{\raggedright #3}
+            \addcontentsline{toc}{chapter}{\prefix\noformat{#3}}
+            \def\thechapter{}
+        }
     }
-    \chaptermark{#2}
-    \@makehead{#3}
+    % Insert headers
+    \begingroup\def\\{}\def\centering{}\@mkboth{#3}{#3}\endgroup
     \@afterheading
 }
 
-
-% ----------------------------------------------------------------------------
-% Remove chapter title formatting from headers and TOC
-% ----------------------------------------------------------------------------
-\let\stdcontentsline\contentsline
-\newcommand{\noformat}[1]{\begingroup\def\\{ }#1\endgroup}
-\renewcommand{\chaptermark}[1]{\markboth{\noformat{#1}}{}}
-\renewcommand{\contentsline}[3]{\stdcontentsline{#1}{\noformat{#2}}{#3}}
+% patch commands that call chapter*
+\patchcmd{\tableofcontents}{\@mkboth{\MakeUppercase\contentsname}{\MakeUppercase\contentsname}}{}{}{}
+\patchcmd{\listoffigures}{\@mkboth{\MakeUppercase\listfigurename}{\MakeUppercase\listfigurename}}{}{}{}
+\patchcmd{\listoftables}{\@mkboth{\MakeUppercase\listtablename}{\MakeUppercase\listtablename}}{}{}{}
 
 
 % ----------------------------------------------------------------------------
