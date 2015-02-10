@@ -213,12 +213,15 @@
 \ifnonumber
     \renewcommand{\thesection}{}
     \renewcommand{\thesubsection}{}
-    \def\@seccntformat#1{\csname #1ignore\expandafter\endcsname\csname the#1\endcsname\quad}
-    \let\sectionignore\@gobbletwo
-    \let\subsectionignore\@gobbletwo
-    \let\latex@numberline\numberline
-    \def\numberline#1{\if\relax#1\relax\else\latex@numberline{#1}\fi}
 \fi
+
+% strip empty space in un-numbered section headers
+\def\@seccntformat#1{\if\csname the#1\endcsname\relax\else\csname the#1\endcsname\quad\fi}
+
+% strip empty space in un-numbered TOC entries
+\let\latex@numberline\numberline
+\def\numberline#1{\if\relax#1\relax\else\latex@numberline{#1}\fi}
+
 
 
 % ----------------------------------------------------------------------------
@@ -237,9 +240,8 @@
 % ----------------------------------------------------------------------------
 % Custom Chapter Style
 % ----------------------------------------------------------------------------
-\newcommand{\noformat}[1]{\begingroup\def\\{ }#1\endgroup}
-
 \newcounter{alphachapter}
+\newcommand{\noformat}[1]{\begingroup\def\\{ }#1\endgroup}
 \RenewDocumentCommand{\chapter}{ som }{
     % open new page
     \if@openright\cleardoublepage\else\clearpage\fi
@@ -256,17 +258,17 @@
         % regular version
         \IfNoValueTF{#2}{
             % \chapter{Title}
-            \setcounter{secnumdepth}{2}
             \refstepcounter{chapter}
             \addcontentsline{toc}{chapter}{\protect\numberline{\thechapter}\noformat{#3}}
             \@makechapterhead{\raggedright #3}
         }{
             % \chapter[Subtitle]{Title}
             \ifthenelse{\equal{#2}{}}{\def\prefix{}}{\def\prefix{#2: }}
-            \setcounter{secnumdepth}{0} % FIXME: breaks hyperlinks
             \refstepcounter{alphachapter}
             \def\@chapapp{}
             \def\thechapter{#2}
+            \def\thesection{}
+            \def\thesubsection{}
             \@makechapterhead{\raggedright #3}
             \addcontentsline{toc}{chapter}{\prefix\noformat{#3}}
             \def\thechapter{}
