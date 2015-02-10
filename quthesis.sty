@@ -249,6 +249,30 @@
 
 
 % ----------------------------------------------------------------------------
+% Custom Chapter Style
+% ----------------------------------------------------------------------------
+\let\stdchapter\chapter
+\NewDocumentCommand{\newchapter}{ s O{} m }{
+    \if@openright\cleardoublepage\else\clearpage\fi
+    \thispagestyle{plain}%
+    \global\global\@topnum\z@
+    \@afterindentfalse
+    \IfBooleanTF#1{
+        % starred version
+        %\stdchapter*{#3}
+        \let\@makehead\@makeschapterhead
+    }{
+        % regular version
+        \refstepcounter{chapter}
+        \let\@makehead\@makechapterhead
+    }
+    \chaptermark{#2}
+    \@makehead{#3}
+    \@afterheading
+}
+
+
+% ----------------------------------------------------------------------------
 % Remove chapter title formatting from headers and TOC
 % ----------------------------------------------------------------------------
 \let\stdcontentsline\contentsline
