@@ -14,7 +14,7 @@ script_dir=$(dirname "$0")
 # ----------------------------------------------------------------------------
 # TeX Processor
 # ----------------------------------------------------------------------------
-if [ "$(which xetex)" ]; then
+if [ "$(which xelatex)" ]; then
   latex="xelatex"
 else
   latex="pdflatex"
