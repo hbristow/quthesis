@@ -174,8 +174,8 @@
     \begin{center}
         \topskip0pt
         \vspace*{\fill}\vspace{-30mm}
-        \Huge{\fontsize{1.8em}{2em}\selectfont \calendas \@title}\\\vspace{5mm}
-        \Huge{\fontsize{1em}{1em}\selectfont \calendas \@subtitle}\\
+        {\fontsize{4em}{4em}\selectfont \calendas \@title\par}\vspace{5mm}
+        {\fontsize{2em}{2em}\selectfont \calendas \@subtitle\par}
         \ifstrict
             \vspace{12mm}
             \large{\emph{by}\\\medskip \textbf{\@author}}\\
@@ -263,7 +263,7 @@
         }{
             % \chapter[Subtitle]{Title}
             \ifthenelse{\equal{#2}{}}{\def\prefix{}}{\def\prefix{#2: }}
-            \setcounter{secnumdepth}{0}
+            \setcounter{secnumdepth}{0} % FIXME: breaks hyperlinks
             \refstepcounter{alphachapter}
             \def\@chapapp{}
             \def\thechapter{#2}
