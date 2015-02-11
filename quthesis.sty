@@ -45,6 +45,7 @@
 \RequirePackage{ifxetex}
 \RequirePackage{longtable}
 \RequirePackage{pgffor,pgfmath}
+\RequirePackage{setspace}
 \RequirePackage{wrapfig}
 \RequirePackage{xparse}
 \RequirePackage{xspace}
@@ -91,11 +92,7 @@
     \printtrue
 }
 
-\DeclareOption{onehalfspacing}{
-    \let\stdmainmatter\mainmatter
-    \renewcommand{\mainmatter}{\stdmainmatter\onehalfspacing}
-}
-
+\DeclareOption{onehalfspacing}{\onehalfspacing}
 \DeclareOption{calendas}{\calendastrue}
 \DeclareOption{dropcaps}{\dropcapstrue}
 \DeclareOption{footnotebackref}{\footnotebackreftrue}
@@ -157,10 +154,10 @@
         % Hoefler Text fallback (OS X), Windows users should change this to Georgia
         \newfontfamily\calendas{Hoefler Text}
     \fi
-    \titleformat*{\chapter}{\LARGE\calendas}
-    \titleformat*{\section}{\LARGE\calendas}
-    \titleformat*{\subsection}{\Large\calendas}
-    \titleformat*{\subsubsection}{\large\calendas}
+    \titleformat*{\chapter}{\singlespacing\LARGE\calendas}
+    \titleformat*{\section}{\singlespacing\LARGE\calendas}
+    \titleformat*{\subsection}{\singlespacing\Large\calendas}
+    \titleformat*{\subsubsection}{\singlespacing\large\calendas}
 \else
     % fallback to bold Computer Modern
     \newcommand{\calendas}{\bf}
@@ -174,6 +171,7 @@
 
     \thispagestyle{empty}
     \begin{center}
+    \begin{singlespace}
         \topskip0pt
         \vspace*{\fill}\vspace{-30mm}
         {\fontsize{4em}{4em}\selectfont \calendas \@title\par}\vspace{5mm}
@@ -194,6 +192,7 @@
             \Large{\calendas \@author\\\vspace{0.2in} \the\year}
             \vspace*{\fill}
         \fi
+    \end{singlespace}
     \end{center}
     \clearpage
 
