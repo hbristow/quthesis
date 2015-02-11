@@ -113,6 +113,8 @@
 \makeatletter
 \newcommand\subtitle[1]{\renewcommand\@subtitle{#1\xspace}}
 \newcommand\@subtitle{}
+\newcommand\flourish[1]{\renewcommand\@flourish{#1}}
+\newcommand\@flourish{}
 \newcommand\email[1]{\renewcommand\@email{\href{mailto:#1}{#1}\xspace}}
 \newcommand\@email{}
 \newcommand\university[1]{\renewcommand\@university{#1\xspace}}
@@ -176,6 +178,7 @@
         \vspace*{\fill}\vspace{-30mm}
         {\fontsize{4em}{4em}\selectfont \calendas \@title\par}\vspace{5mm}
         {\fontsize{2em}{2em}\selectfont \calendas \@subtitle\par}
+        \@flourish
         \ifstrict
             \vspace{12mm}
             \large{\emph{by}\\\medskip \textbf{\@author}}\\
