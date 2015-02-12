@@ -1,19 +1,30 @@
 QUThesis
 ========
-A LaTeX package and template for writing a thesis/dissertation at the Queensland University of Technology (QUT)
+A LaTeX package and template for writing a thesis/dissertation at the
+Queensland University of Technology (QUT)
 
 Introduction
 ------------
-This set of files provides the `quthesis` LaTeX package, which defines a set of styles and preamble specific to QUT's submission guidelines for a PhD dissertation.
+This set of files provides the `quthesis` LaTeX package, which defines a set
+of styles and preamble specific to QUT's submission guidelines for writing
+PhD dissertations, and a thesis skeleton to help you organise your content
+and get writing fast.
 
-The `thesis.tex` file has everything you need to get started, and was used to produce the sample `thesis.pdf`. The package was designed to work with the `book` document class and the commands it provides.
+The goal of this package is not to provide magical LaTeX hacks (though it does),
+but rather to provide a set of sane defaults so you can focus on what's
+important - your contribution to the literature - whilst being easy to
+understand should you wish to change any of the styles.
+
+I procrastinated writing this boilerplate so you don't have (an excuse) to.
 
 Features
 --------
 
- - A thesis skeleton to help get you writing
- - Chapters included using the `subfiles` package so you can compile them independently
- - A `compile` shell script which can build your whole document or a single chapter, writing intermediate files to the `build` directory to keep your working directory clean
+ - The `quthesis` package declaring a set of sane defaults for thesis dissertations
+ - A thesis skeleton to help you organise your content and get writing fast
+ - Chapters included using the `subfiles` package so they can be compiled independently
+ - A `compile` shell script for building the whole document or a single chapter,
+   staging intermediate files in a build directory to keep your working directory clean
  - Preconfigured `.gitignore` files to assist in version control
  - Margins and font size optimized for readability
  - Minimal definitions and package includes
