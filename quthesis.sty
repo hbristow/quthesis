@@ -113,6 +113,8 @@
 \newcommand\@subtitle{}
 \newcommand\flourish[1]{\renewcommand\@flourish{#1}}
 \newcommand\@flourish{}
+\newcommand\logo[1]{\renewcommand\@logo{#1}}
+\newcommand\@logo{}
 \newcommand\email[1]{\renewcommand\@email{\href{mailto:#1}{#1}\xspace}}
 \newcommand\@email{}
 \newcommand\university[1]{\renewcommand\@university{#1\xspace}}
@@ -174,6 +176,7 @@
     \begin{center}
     \begin{singlespace}
         \topskip0pt
+        \ifstrict\@logo\par\fi
         \vspace*{\fill}\vspace{-30mm}
         {\fontsize{4em}{4em}\selectfont \calendas \@title\par}\vspace{5mm}
         {\fontsize{2em}{2em}\selectfont \calendas \@subtitle\par}
