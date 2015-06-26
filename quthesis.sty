@@ -382,7 +382,8 @@
     \begin{minipage}{0.8\textwidth} \itshape
 }{
     \ifthenelse{\equal{#1}{}}{}{\par\raggedleft\textsc{-- #1}}
-    \end{minipage}\end{#2}\par\@afterindentfalse
+    \end{minipage}\end{#2}
+    \par\aftergroup\@afterindentfalse\aftergroup\@afterheading
 }
 
 
@@ -396,9 +397,11 @@
         \obeyspaces\obeylines
         \begingroup\lccode`~=`\^^M
         \lowercase{\endgroup\def~{\@ifnextchar~{\\}{\\*}}}
+        \vspace{-2mm}
         \begin{longtable}{l}
     }{
         \end{longtable}
+        \par\aftergroup\@afterindentfalse\aftergroup\@afterheading
     }
 \fi
 
