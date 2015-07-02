@@ -471,17 +471,17 @@
 % ----------------------------------------------------------------------------
 \newcounter{reftype@N}
 \NewDocumentCommand{\reftype}{ m m m O{s} }{%
-    \def\labels{#3}%
-    \def\delimiter{}%
+    \def\thesis@labels{#3}%
+    \def\thesis@delimiter{}%
     \setcounter{reftype@N}{-1}%
-    \foreach \lab in \labels {\stepcounter{reftype@N}}%
+    \foreach \lab in \thesis@labels {\stepcounter{reftype@N}}%
     #1\ifthenelse{\equal{\value{reftype@N}}{0}}{}{#4}
-    \foreach \lab [count=\n] in \labels {%
-        \delimiter\ref{#2:\lab}%
+    \foreach \lab [count=\n] in \thesis@labels {%
+        \thesis@delimiter\ref{#2:\lab}%
         \ifthenelse{\equal{\value{reftype@N}}{\n}}{%
-            \gdef\delimiter{ and }%
+            \gdef\thesis@delimiter{ and }%
         }{%
-            \gdef\delimiter{, }%
+            \gdef\thesis@delimiter{, }%
         }%
     }%
 }
