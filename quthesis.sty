@@ -418,6 +418,7 @@
     % Insert non-empty biography
     \ifthenelse{\equal{\BODY}{}}{}{
         \chapter*{\centering Author Biography}
+        \thispagestyle{empty}
         % \begin{biography}[figures/portrait] usage
         \ifthenelse{\equal{#1}{}}{}{
             \begin{wrapfigure}{L}{0.3\columnwidth}
