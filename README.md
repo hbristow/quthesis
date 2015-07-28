@@ -1,6 +1,6 @@
 QUThesis
 ========
-A LaTeX package and template for writing a thesis/dissertation at the
+A LaTeX package and template for writing a thesis dissertation at the
 Queensland University of Technology (QUT)
 
 ![QUThesis Screenshot](quthesis.jpg)
