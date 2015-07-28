@@ -3,6 +3,8 @@ QUThesis
 A LaTeX package and template for writing a thesis/dissertation at the
 Queensland University of Technology (QUT)
 
+![QUThesis Screenshot](quthesis.jpg)
+
 Introduction
 ------------
 This set of files provides the `quthesis` LaTeX package, which defines a set
